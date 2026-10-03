@@ -1,0 +1,36 @@
+{
+  "name": "aisance-video-editing",
+  "version": "0.1.0",
+  "description": "Local review tool for videos: storyboard approval and frame-precise component review, driven by a manifest.json written by any skill.",
+  "type": "module",
+  "bin": {
+    "aisance-video-editing": "bin/aisance-video-editing.mjs"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JulienSnsnCode/aisance-video-editing.git"
+  }
+}
