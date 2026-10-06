@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ai-corner/manifest.schema.json",
-  "title": "ai-corner manifest",
+  "$id": "ai-corner-editing/manifest.schema.json",
+  "title": "ai-corner-editing manifest",
   "description": "Written by a skill into <project>/review/manifest.json. Paths are relative to the review/ folder.",
   "type": "object",
   "required": [

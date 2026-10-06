@@ -1,10 +1,15 @@
-# Changelog — AI Corner
+# Changelog — AI Corner editing
 
-Toutes les évolutions notables de l'app de relecture AI Corner.
+Toutes les évolutions notables de l'app de relecture AI Corner editing.
 Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ; numéros : [SemVer](https://semver.org/lang/fr/)
 (correctif = bug corrigé, mineur = nouvelle fonction compatible, majeur = format du manifeste ou de review.json cassé).
 
 ## [Non publié]
+
+## [0.3.0] — 2026-10-06
+### Modifié
+- **Nom définitif : AI Corner editing.** Paquet et commande `ai-corner-editing` (remplace `ai-corner`), en-tête « AI Corner · editing », titre de page, schémas `ai-corner-editing/…`.
+- Dépôt GitHub : `lionelcoding/ai-corner-editing`.
 
 ## [0.2.0] — 2026-10-06
 Première version AI Corner, reprise et développée par Lionel Louis.

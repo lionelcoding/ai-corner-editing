@@ -1,6 +1,6 @@
-# AI Corner
+# AI Corner editing
 
-Outil de relecture vidéo d'AI Corner (storyboard, versions, relecture image par image).
+AI Corner editing : outil de relecture vidéo d'AI Corner (storyboard, versions, relecture image par image).
 Fork de [aisance-video-editing](https://github.com/JulienSnsnCode/aisance-video-editing) (MIT), repris et développé par Lionel Louis / AI Corner.
 
 A local review app for videos. It has two modes:
@@ -15,17 +15,17 @@ Works for vertical 9:16 reels and long 16:9 videos. The layout follows `canvas`,
 
 ## Install
 ```
-git clone <ton dépôt AI Corner> && cd ai-corner
-npm ci && npm run build && npm link     # puts `ai-corner` on the PATH
+git clone <ton dépôt AI Corner> && cd ai-corner-editing
+npm ci && npm run build && npm link     # puts `ai-corner-editing` on the PATH
 ```
 Requires Node 22+ and ffmpeg (waveforms).
 
 ## CLI
 ```
-ai-corner open <projectDir> [--port N] [--no-open]   # serve <projectDir>, open the browser
-ai-corner validate <projectDir>                      # check review/manifest.json (exit 1 on errors)
-ai-corner status <projectDir>                        # {stage, round, status, open, panels} as JSON
-ai-corner comments <projectDir> [--all]              # open comments as plain text
+ai-corner-editing open <projectDir> [--port N] [--no-open]   # serve <projectDir>, open the browser
+ai-corner-editing validate <projectDir>                      # check review/manifest.json (exit 1 on errors)
+ai-corner-editing status <projectDir>                        # {stage, round, status, open, panels} as JSON
+ai-corner-editing comments <projectDir> [--all]              # open comments as plain text
 ```
 The server listens on 127.0.0.1 only and serves `<projectDir>` read-only. Paths that leave the project are refused, and so are symlinks pointing outside it. The one exception is a media file the manifest names explicitly (a music track linked from another folder, say). The page reloads by itself when the manifest or review.json changes on disk.
 
@@ -109,7 +109,7 @@ The skill never touches `panels` or `approved_round`. The app keeps the comment 
 
 ## Develop
 ```
-ai-corner open <dir> --port 4300 --no-open   # API + files
+ai-corner-editing open <dir> --port 4300 --no-open   # API + files
 npm run dev                                        # Vite on :5173, proxies to :4300
 npm test && npm run typecheck
 ```

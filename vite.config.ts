@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// `npm run dev` proxies the API and project files to a running `ai-corner open --port 4300`.
+// `npm run dev` proxies the API and project files to a running `ai-corner-editing open --port 4300`.
 export default defineConfig({
   plugins: [react()],
   server: {

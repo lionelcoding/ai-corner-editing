@@ -24,7 +24,7 @@ export function App() {
   const [help, setHelp] = useState(false);
 
   useEffect(() => {
-    if (state?.manifest) document.title = `${state.manifest.project} · AI Corner`;
+    if (state?.manifest) document.title = `${state.manifest.project} · AI Corner editing`;
   }, [state?.manifest]);
 
   if (error) return <div className="fatal">Server unreachable: {error}</div>;
@@ -57,7 +57,7 @@ export function App() {
   return (
     <div className={`app${archived ? " is-archived" : ""}`}>
       <header className="top">
-        <div className="brand"><span className="logo">AI</span>AI Corner<small>Relecture</small></div>
+        <div className="brand"><span className="logo">AI</span>AI Corner<small>editing</small></div>
         <div className="crumbs">
           <b>{m.title || m.project}</b>
           <div className="seg stage-switch" title="Switch between the storyboard and the final video">

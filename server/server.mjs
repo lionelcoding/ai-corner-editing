@@ -259,7 +259,7 @@ export async function startServer({ projectDir, port = 0, host = "127.0.0.1" }) 
       const abs = path.resolve(DIST, rel);
       if (abs.startsWith(DIST + path.sep) && fs.existsSync(abs)) return serveFile(req, res, abs, { cache: rel.startsWith("assets/") });
       if (fs.existsSync(path.join(DIST, "index.html"))) return serveFile(req, res, path.join(DIST, "index.html"));
-      return send(res, 500, "UI not built: run `npm run build` in ai-corner.", "text/plain");
+      return send(res, 500, "UI not built: run `npm run build` in ai-corner-editing.", "text/plain");
     } catch (e) {
       send(res, 500, { error: String(e?.message || e) });
     }

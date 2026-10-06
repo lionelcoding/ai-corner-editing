@@ -1,10 +1,10 @@
 {
-  "name": "ai-corner",
-  "version": "0.2.0",
-  "description": "AI Corner — relecture locale des vidéos : storyboard, versions et relecture image par image, pilotée par un manifest.json.",
+  "name": "ai-corner-editing",
+  "version": "0.3.0",
+  "description": "AI Corner editing — relecture locale des vidéos : storyboard, versions et relecture image par image, pilotée par un manifest.json.",
   "type": "module",
   "bin": {
-    "ai-corner": "bin/ai-corner.mjs"
+    "ai-corner-editing": "bin/ai-corner-editing.mjs"
   },
   "scripts": {
     "dev": "vite",
@@ -28,5 +28,9 @@
   "engines": {
     "node": ">=22"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lionelcoding/ai-corner-editing.git"
+  }
 }
