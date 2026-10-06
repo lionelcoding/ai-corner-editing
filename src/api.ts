@@ -1,8 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Comment, Review, Stage, State } from "./types";
+import type { Comment, Review, Stage, State, Version } from "./types";
 
-async function getState(stage?: Stage): Promise<State> {
-  const r = await fetch(stage ? `/api/state?stage=${stage}` : "/api/state");
+async function getState(stage?: Stage, v?: number): Promise<State> {
+  const q = new URLSearchParams();
+  if (stage) q.set("stage", stage);
+  if (v) q.set("v", String(v));
+  const qs = q.toString();
+  const r = await fetch(`/api/state${qs ? `?${qs}` : ""}`);
   if (!r.ok) throw new Error(`state: HTTP ${r.status}`);
   return r.json();
 }
@@ -23,7 +27,7 @@ function merge(local: Review, disk: Review, deleted: Set<string>): Review {
   return { ...local, round: disk.round, stage: disk.stage, comments };
 }
 
-export function useStore(stage?: Stage) {
+export function useStore(stage?: Stage, v?: number) {
   const [state, setState] = useState<State | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState<"idle" | "saving" | "error">("idle");
@@ -35,10 +39,12 @@ export function useStore(stage?: Stage) {
   current.current = state;
   const stageRef = useRef(stage);
   stageRef.current = stage;
+  const vRef = useRef(v);
+  vRef.current = v;
 
   const load = useCallback(async () => {
     try {
-      const s = await getState(stageRef.current);
+      const s = await getState(stageRef.current, vRef.current);
       version.current = s.version;
       setState(s);
       setError(null);
@@ -54,7 +60,7 @@ export function useStore(stage?: Stage) {
     });
     let res = await put(s.review);
     if (res.status === 409) {
-      const disk = await getState(stageRef.current);
+      const disk = await getState(stageRef.current, vRef.current);
       version.current = disk.version;
       if (disk.review) {
         const merged = merge(s.review, disk.review, deleted.current);
@@ -96,7 +102,7 @@ export function useStore(stage?: Stage) {
   }, [load]);
 
   // switching stage only changes which manifest is shown; the review state is shared
-  useEffect(() => { load(); }, [stage, load]);
+  useEffect(() => { load(); }, [stage, v, load]);
 
   return { state, error, saving, update, reload: load };
 }
@@ -109,4 +115,9 @@ export async function uploadShot(id: string, blob: Blob): Promise<string | undef
 export async function fetchPeaks(src: string, per = 50): Promise<{ duration: number; perSecond: number; peaks: number[] } | null> {
   const r = await fetch(`/api/peaks?src=${encodeURIComponent(src)}&per=${per}`);
   return r.ok ? r.json() : null;
+}
+
+export async function fetchVersions(): Promise<Version[]> {
+  const r = await fetch("/api/versions");
+  return r.ok ? (await r.json()).versions : [];
 }

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-// aisance-video-editing CLI. Skills call this by name; it never needs to know what a "reel" is.
+// ai-corner CLI. Skills call this by name; it never needs to know what a "reel" is.
 import fs from "node:fs";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { startServer } from "../server/server.mjs";
 import { validateManifest, reconcile, reviewToText } from "../lib/core.mjs";
 
-const USAGE = `aisance-video-editing <command> <projectDir> [options]
+const USAGE = `ai-corner <command> <projectDir> [options]
 
 Commands
   open <dir>       Start the review app for <dir>/review/manifest.json and open the browser
@@ -16,7 +16,7 @@ Commands
   status <dir>     Print the gate's review status as JSON: {stage, round, status, open, panels, stages}
   comments <dir>   Print the open comments as text (--all to include resolved ones)
 
-Contract: README.md in the aisance-video-editing repo.`;
+Contract: README.md in the ai-corner repo.`;
 
 const [cmd, dir, ...rest] = process.argv.slice(2);
 const flag = (name) => rest.includes(name);
@@ -59,7 +59,7 @@ switch (cmd) {
   }
   case "open": {
     const srv = await startServer({ projectDir: dir, port: +(opt("--port") || 0) });
-    console.log(`aisance-video-editing: ${srv.url}  (project ${srv.root})\nCtrl+C to stop.`);
+    console.log(`ai-corner: ${srv.url}  (project ${srv.root})\nCtrl+C to stop.`);
     if (!flag("--no-open")) spawn(process.platform === "darwin" ? "open" : "xdg-open", [srv.url], { stdio: "ignore", detached: true }).unref();
     const stop = async () => { await srv.close(); process.exit(0); };
     process.on("SIGINT", stop);

@@ -57,4 +57,4 @@ export const targetLabel = (t: Target) => {
 export const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
 export const trackColor = (t: Track, i: number) =>
-  t.color || ["#7c9cff", "#ffb547", "#5fd3a5", "#ff7aa8", "#b78cff", "#4fc3f7", "#f4d35e"][i % 7];
+  t.color || ["#0a84ff", "#ff9f0a", "#30d158", "#ff375f", "#bf5af2", "#40c8e0", "#ffd60a"][i % 7];

@@ -1,10 +1,10 @@
 {
-  "name": "aisance-video-editing",
-  "version": "0.1.0",
-  "description": "Local review tool for videos: storyboard approval and frame-precise component review, driven by a manifest.json written by any skill.",
+  "name": "ai-corner",
+  "version": "0.2.0",
+  "description": "AI Corner — relecture locale des vidéos : storyboard, versions et relecture image par image, pilotée par un manifest.json.",
   "type": "module",
   "bin": {
-    "aisance-video-editing": "bin/aisance-video-editing.mjs"
+    "ai-corner": "bin/ai-corner.mjs"
   },
   "scripts": {
     "dev": "vite",
@@ -28,9 +28,5 @@
   "engines": {
     "node": ">=22"
   },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/JulienSnsnCode/aisance-video-editing.git"
-  }
+  "license": "MIT"
 }

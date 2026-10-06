@@ -48,4 +48,6 @@ export interface Review {
 export interface State {
   manifest: Manifest | null; errors: string[]; review: Review | null; version?: string; root?: string;
   gateStage?: Stage; stages?: Stage[];
+  archived?: number;   // tour archivé affiché (lecture seule)
 }
+export interface Version { round: number; stage: Stage; title?: string; label?: string; current?: boolean }

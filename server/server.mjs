@@ -178,9 +178,33 @@ export async function startServer({ projectDir, port = 0, host = "127.0.0.1" }) 
         const { gate, byStage, errors } = await loadManifests();
         if (!gate || errors.length) return send(res, 200, { manifest: gate, errors, review: null, root });
         const want = url.searchParams.get("stage");
-        const manifest = byStage[want] || gate;
+        let manifest = byStage[want] || gate;
+        // versions : ?v=N affiche le tour N archivé dans review/versions/round-N.json (lecture seule)
+        const v = +(url.searchParams.get("v") || 0);
+        let archived;
+        if (v && v !== gate.round) {
+          const old = await readJSON(path.join(reviewDir, "versions", `round-${v}.json`));
+          if (old && !validateManifest(old).length) { manifest = old; archived = v; }
+        }
         const { review, version } = await loadReview(gate, byStage);
-        return send(res, 200, { manifest, gateStage: gate.stage, stages: STAGES.filter((s) => byStage[s]), errors, review, version, root });
+        return send(res, 200, { manifest, gateStage: gate.stage, stages: STAGES.filter((s) => byStage[s]), errors, review, version, root, archived });
+      }
+
+      if (p === "/api/versions" && req.method === "GET") {
+        const dir = path.join(reviewDir, "versions");
+        const labels = (await readJSON(path.join(dir, "index.json"))) || {};
+        const files = fs.existsSync(dir) ? await fsp.readdir(dir) : [];
+        const versions = [];
+        for (const f of files) {
+          const mm = /^round-(\d+)\.json$/.exec(f);
+          if (!mm) continue;
+          const old = await readJSON(path.join(dir, f));
+          if (old) versions.push({ round: +mm[1], stage: old.stage, title: old.title, label: labels[mm[1]] });
+        }
+        const gate = await readJSON(manifestPath);
+        if (gate) versions.push({ round: gate.round, stage: gate.stage, title: gate.title, label: labels[gate.round], current: true });
+        const byRound = new Map(versions.map((x) => [x.round, x]));   // le tour courant prime sur une archive du même numéro
+        return send(res, 200, { versions: [...byRound.values()].sort((a, b) => a.round - b.round) });
       }
 
       if (p === "/api/review" && req.method === "PUT") {
@@ -235,7 +259,7 @@ export async function startServer({ projectDir, port = 0, host = "127.0.0.1" }) 
       const abs = path.resolve(DIST, rel);
       if (abs.startsWith(DIST + path.sep) && fs.existsSync(abs)) return serveFile(req, res, abs, { cache: rel.startsWith("assets/") });
       if (fs.existsSync(path.join(DIST, "index.html"))) return serveFile(req, res, path.join(DIST, "index.html"));
-      return send(res, 500, "UI not built: run `npm run build` in aisance-video-editing.", "text/plain");
+      return send(res, 500, "UI not built: run `npm run build` in ai-corner.", "text/plain");
     } catch (e) {
       send(res, 500, { error: String(e?.message || e) });
     }
