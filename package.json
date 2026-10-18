@@ -4,13 +4,15 @@
   "description": "AI Corner editing — relecture locale des vidéos : storyboard, versions et relecture image par image, pilotée par un manifest.json.",
   "type": "module",
   "bin": {
-    "ai-corner-editing": "bin/ai-corner-editing.mjs"
+    "ai-corner-editing": "bin/ai-corner-editing.mjs",
+    "ai-corner-review": "adapter/review"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/*.test.mjs",
+    "demo": "bash examples/demo/make-media.sh && adapter/review examples/demo"
   },
   "dependencies": {
     "ajv": "^8.20.0",

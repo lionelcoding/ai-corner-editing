@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>demo · cartes</title>
+<style>
+  html, body { margin: 0; width: 1080px; height: 1920px; background: transparent; font: 600 56px -apple-system, system-ui, sans-serif; }
+  .card { box-sizing: border-box; position: absolute; left: 90px; width: 900px; padding: 48px; border-radius: 40px; background: #fff; color: #111; opacity: 0; box-shadow: 0 20px 60px #0004; }
+  .card li { font-size: 44px; font-weight: 500; margin: 16px 0; opacity: 0; }
+  #titre { top: 220px; }
+  #etapes { top: 700px; }
+  #cta { top: 1300px; background: #0a84ff; color: #fff; text-align: center; }
+</style>
+</head>
+<body>
+  <!-- data-rid = id du composant dans review.config.json : c'est ce qui rend l'élément cliquable dans l'app -->
+  <div class="card" id="titre" data-rid="titre">3 étapes pour monter un short</div>
+  <div class="card" id="etapes" data-rid="etapes">
+    <ul>
+      <li data-rid="etapes.1">Analyser le rush</li>
+      <li data-rid="etapes.2">Valider le storyboard</li>
+      <li data-rid="etapes.3">Relire le rendu</li>
+    </ul>
+  </div>
+  <div class="card" id="cta" data-rid="cta">Abonne-toi</div>
+<script>
+  // Une timeline minimale, sans GSAP : l'app n'exige qu'un objet { seek(t) } dans window.__timelines.
+  // Dans une vraie composition HyperFrames, c'est la timeline GSAP en pause.
+  const show = (el, from, to) => ({ el, from, to });
+  const steps = [
+    show(titre, 0.5, 3.0),
+    show(etapes, 3.0, 6.5),
+    ...[...etapes.querySelectorAll("li")].map((li, i) => show(li, 3.5 + i * 0.8, 6.5)),
+    show(cta, 6.5, 9.0),
+  ];
+  window.__timelines = { main: { seek(t) { for (const s of steps) s.el.style.opacity = t >= s.from && t < s.to ? 1 : 0; } } };
+  window.__timelines.main.seek(0);
+</script>
+</body>
+</html>

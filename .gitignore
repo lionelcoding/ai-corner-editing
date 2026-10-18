@@ -3,3 +3,8 @@ dist/
 .DS_Store
 ._*
 *.bak
+# projet exemple : médias fabriqués par make-media.sh et état de relecture
+examples/demo/out/
+examples/demo/frames/
+examples/demo/review/
+examples/demo/*.review.html

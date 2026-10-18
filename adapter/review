@@ -1,0 +1,12 @@
+#!/bin/bash
+# review <dossier-projet> [--next-round] [--video chemin] [--round N] [--no-open]
+# Génère review/manifest.json depuis review.config.json, le valide, puis ouvre l'app de relecture.
+set -e
+DIR="${1:?usage : review <dossier-projet> [--next-round] [--video chemin] [--round N] [--no-open]}"; shift
+HERE="$(python3 -c 'import os,sys;print(os.path.dirname(os.path.realpath(sys.argv[1])))' "$0")"
+CLI="$HERE/../bin/ai-corner-editing.mjs"            # la CLI du même dépôt, même sans npm link
+OPEN=1; ARGS=()
+for a in "$@"; do [ "$a" = "--no-open" ] && OPEN=0 || ARGS+=("$a"); done
+python3 "$HERE/review_manifest.py" "$DIR" "${ARGS[@]}"
+node "$CLI" validate "$DIR"
+if [ $OPEN = 1 ]; then exec node "$CLI" open "$DIR"; fi

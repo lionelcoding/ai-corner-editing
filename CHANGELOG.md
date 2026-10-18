@@ -5,6 +5,11 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ; numéros : [
 (correctif = bug corrigé, mineur = nouvelle fonction compatible, majeur = format du manifeste ou de review.json cassé).
 
 ## [Non publié]
+### Ajouté
+- **Adaptateur `review`** dans le dépôt (`adapter/`, commande `ai-corner-review`) : `review.config.json` → `review/manifest.json`, tours, versions et passage storyboard → final. Il appelle la CLI du même dépôt.
+- **Projet exemple** `examples/demo` et `npm run demo` : un short de 9 s (médias fabriqués par ffmpeg) avec storyboard, couche HTML cliquable, sous-titres, effets sonores.
+- **Guide de bout en bout** `docs/parcours.md` : rush → storyboard → montage → relecture finale, avec la carte des skills de montage.
+- README : rôle des fichiers de `review/` (`manifest.<stage>.json`, `versions/round-N.json`, `versions/index.json`).
 
 ## [0.3.0] — 2026-10-06
 ### Modifié

@@ -1,0 +1,21 @@
+[
+  {"word": "Monter", "start": 0.4, "end": 0.9},
+  {"word": "un", "start": 0.9, "end": 1.05},
+  {"word": "short", "start": 1.05, "end": 1.6},
+  {"word": "en", "start": 1.7, "end": 1.85},
+  {"word": "trois", "start": 1.85, "end": 2.2},
+  {"word": "étapes.", "start": 2.2, "end": 2.9},
+  {"word": "On", "start": 3.2, "end": 3.35},
+  {"word": "analyse", "start": 3.35, "end": 3.9},
+  {"word": "le", "start": 3.9, "end": 4.0},
+  {"word": "rush,", "start": 4.0, "end": 4.4},
+  {"word": "on", "start": 4.5, "end": 4.6},
+  {"word": "valide", "start": 4.6, "end": 5.0},
+  {"word": "le", "start": 5.0, "end": 5.1},
+  {"word": "storyboard,", "start": 5.1, "end": 5.7},
+  {"word": "on", "start": 5.8, "end": 5.9},
+  {"word": "relit", "start": 5.9, "end": 6.3},
+  {"word": "le", "start": 6.3, "end": 6.4},
+  {"word": "rendu.", "start": 6.4, "end": 6.9},
+  {"word": "Abonne-toi.", "start": 7.2, "end": 8.0}
+]

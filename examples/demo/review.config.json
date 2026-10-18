@@ -1,0 +1,52 @@
+{
+  "project": "demo",
+  "title": "Démo · 3 étapes pour monter un short",
+  "version": "V1 · storyboard",
+  "stage": "storyboard",
+  "canvas": { "w": 1080, "h": 1920, "fps": 30 },
+  "video": "out/demo-v1.mp4",
+  "notes": "Projet exemple : approuve ou commente chaque panneau, puis passe à l'étape finale (voir docs/parcours.md).",
+
+  "panels": [
+    { "id": "hook", "title": "01 · Promesse", "kind": "title", "start": 0, "end": 3,
+      "images": [{ "src": "frames/hook.png", "label": "maquette 1" }],
+      "excerpt": "Monter un short en trois étapes.",
+      "description": "Carte titre blanche en haut, face cam plein écran derrière.",
+      "clip": { "start": 0, "end": 3 } },
+    { "id": "steps", "title": "02 · Les étapes", "kind": "list", "start": 3, "end": 6.5,
+      "images": [{ "src": "frames/demo.png", "label": "maquette 1" }],
+      "excerpt": "On analyse le rush, on valide le storyboard, on relit le rendu.",
+      "description": "Liste de 3 points qui apparaissent un par un, calés sur la voix.",
+      "clip": { "start": 3, "end": 6.5 } },
+    { "id": "cta", "title": "03 · Appel à l'action", "kind": "cta", "start": 6.5, "end": 9,
+      "images": [{ "src": "frames/cta.png", "label": "maquette 1" }],
+      "excerpt": "Abonne-toi.",
+      "description": "Bouton bleu au centre.",
+      "clip": { "start": 6.5, "end": 9 } }
+  ],
+
+  "segments": [
+    { "id": "seg-hook", "label": "Promesse", "start": 0, "end": 3 },
+    { "id": "seg-steps", "label": "Étapes", "start": 3, "end": 6.5 },
+    { "id": "seg-cta", "label": "CTA", "start": 6.5, "end": 9 }
+  ],
+  "components": [
+    { "id": "titre", "label": "Carte titre", "rid": "titre", "start": 0.5, "end": 3, "source": { "file": "index.html" } },
+    { "id": "etapes", "label": "Liste des étapes", "rid": "etapes", "start": 3, "end": 6.5, "source": { "file": "index.html" },
+      "children": [
+        { "id": "etapes.1", "rid": "etapes.1", "label": "étape 1", "start": 3.5, "end": 6.5 },
+        { "id": "etapes.2", "rid": "etapes.2", "label": "étape 2", "start": 4.3, "end": 6.5 },
+        { "id": "etapes.3", "rid": "etapes.3", "label": "étape 3", "start": 5.1, "end": 6.5 }
+      ] },
+    { "id": "cta-btn", "label": "Bouton CTA", "rid": "cta", "start": 6.5, "end": 9, "source": { "file": "index.html" } }
+  ],
+  "regions": [
+    { "id": "facecam", "label": "Face cam", "start": 0, "end": 9, "bbox": [0, 1500, 1080, 420] }
+  ],
+  "captions": { "from": "json", "file": "edit/words.json", "bbox": [90, 1650, 900, 160] },
+  "sfx": [
+    { "id": "sfx-whoosh", "label": "whoosh", "start": 3.0, "end": 3.5 },
+    { "id": "sfx-pop", "label": "pop", "start": 6.5, "end": 6.8 }
+  ],
+  "html_layer": { "src": "index.html", "timeline": "main", "track": "components" }
+}

@@ -9,16 +9,19 @@ A local review app for videos. It has two modes:
 
 Comments go back to Claude through a file, not through copy-paste.
 
-It is a **tool**, independent of any skill. A skill writes `review/manifest.json` in its project folder, the user reviews, the app writes `review/review.json`, and the skill reads it when the user says "apply the review". The tool knows nothing about reels: everything specific lives in the skill's adapter (for aisance-reel: `scripts/review_manifest.py`).
+It is a **tool**, independent of any skill. A skill writes `review/manifest.json` in its project folder, the user reviews, the app writes `review/review.json`, and the skill reads it when the user says "apply the review". The tool knows nothing about reels: everything specific lives in an adapter. This repo ships a generic one, [`adapter/`](adapter/README.md): it turns a short `review.config.json` into the manifest and handles rounds, versions and the storyboard → final switch.
+
+**New here?** Read the end-to-end guide, [docs/parcours.md](docs/parcours.md) (rush → storyboard → edit → final review), and try it on the sample project: `npm run demo` ([examples/demo](examples/demo)).
 
 Works for vertical 9:16 reels and long 16:9 videos. The layout follows `canvas`, the timeline zooms and only draws what is in view, and the waveforms are computed once by ffmpeg on the server and cached.
 
 ## Install
 ```
-git clone <ton dépôt AI Corner> && cd ai-corner-editing
-npm ci && npm run build && npm link     # puts `ai-corner-editing` on the PATH
+git clone https://github.com/lionelcoding/ai-corner-editing.git && cd ai-corner-editing
+npm ci && npm run build && npm link     # puts `ai-corner-editing` and `ai-corner-review` on the PATH
+npm run demo                            # optional: open the sample project
 ```
-Requires Node 22+ and ffmpeg (waveforms).
+Requires Node 22+, ffmpeg (waveforms, sample media) and Python 3 (the adapter).
 
 ## CLI
 ```
@@ -26,6 +29,8 @@ ai-corner-editing open <projectDir> [--port N] [--no-open]   # serve <projectDir
 ai-corner-editing validate <projectDir>                      # check review/manifest.json (exit 1 on errors)
 ai-corner-editing status <projectDir>                        # {stage, round, status, open, panels} as JSON
 ai-corner-editing comments <projectDir> [--all]              # open comments as plain text
+ai-corner-review <projectDir> [--next-round] [--video f] [--round N] [--no-open]
+                                                             # adapter: review.config.json -> manifest -> open
 ```
 The server listens on 127.0.0.1 only and serves `<projectDir>` read-only. Paths that leave the project are refused, and so are symlinks pointing outside it. The one exception is a media file the manifest names explicitly (a music track linked from another folder, say). The page reloads by itself when the manifest or review.json changes on disk.
 
@@ -80,6 +85,18 @@ Ids must be unique across the manifest and **stable across rounds**: comments ar
 
 **Element picking.** For an html layer, the app loads the page in an off-screen iframe and seeks the GSAP timeline to the video time. It then asks the DOM which visible `[data-rid]` elements sit under the click, deepest first. An element counts only if it is painted and its opacity is above 0.05. Items with a `bbox` are hit-tested by time and rectangle. Candidates are sorted smallest first; Alt+click cycles through them.
 
+### Files in review/
+| File | Written by | Role |
+|---|---|---|
+| `manifest.json` | skill / adapter | the current round: its `stage` is the gate the status is computed on |
+| `manifest.<stage>.json` | skill / adapter | the last manifest of the *other* stage (`manifest.storyboard.json` once the final review starts). The app shows it as a second tab, the CLI includes it in `status`, and its comments stay in review.json |
+| `versions/round-N.json` | skill / adapter | an archived round: a full manifest, opened read-only from the Versions menu (`GET /api/versions`, `?v=N`). The current round wins over an archive with the same number |
+| `versions/index.json` | skill / adapter | `{"N": "label"}`: names shown in the Versions menu (the manifest itself takes no extra field) |
+| `review.json` | app (+ skill for comment status) | panel statuses, approval and every comment |
+| `shots/` | app | the captured frame of each comment |
+
+Archive a round **before** overwriting `manifest.json` with the next one, and keep each round's render under its own file name, otherwise old versions play the new video. The adapter does all of this (`--next-round`, and the stage switch); see [adapter/README.md](adapter/README.md#tours-et-versions).
+
 ### review/review.json (written by the app, comment status by the skill)
 ```jsonc
 {
@@ -103,7 +120,7 @@ The status is computed:
 1. Read the open comments of the current stage, and open each shot.
 2. Apply the edits.
 3. Set `status: "resolved"` (or `"wontfix"`) with a one-line `resolution`.
-4. Write a new manifest with `round + 1`.
+4. Write a new manifest with `round + 1` (with the adapter: `ai-corner-review <dir> --next-round`).
 
 The skill never touches `panels` or `approved_round`. The app keeps the comment history. Comments resolved in an earlier round show "recheck" until the user confirms them. If the skill writes review.json while the user is editing, the save is retried: the skill's resolutions win for those comments, the user's new comments are kept.
 
