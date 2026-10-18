@@ -57,7 +57,7 @@ On boucle 3 → 4 jusqu'à ce que tous les panneaux soient approuvés et qu'aucu
 
 ## 5. Monter et rendre
 - **facecam-montage** : « lance le montage » → face cam coupée et étalonnée, animations recalées sur la voix, sous-titres, effets sonores, mixage −14 LUFS, rendu dans `out/`.
-- À la main : exporte ton rendu dans `out/` depuis ton logiciel de montage.
+- À la main : monte dans le logiciel de ton choix (Premiere, DaVinci, CapCut…) et exporte un MP4 dans `out/`. Aucun logiciel n'est requis par l'app.
 
 ## 6. Relire la vidéo finale
 Dans `review.config.json` : `"stage": "final"`, `"video": "out/<rendu>.mp4"`, un nouveau `"version"`, et les pistes (`segments`, `components`, `regions`, `captions`, `sfx`, `html_layer`). Puis :
@@ -96,6 +96,6 @@ Ils vivent dans `~/.claude/skills/`, pas dans ce dépôt, avec leurs propres dé
 | Composition et rendu | `hyperframes` (+ `-core`, `-animation`, `-audio`, `-registry`, `-cli`…), `general-video` | la composition HTML/GSAP rendue en vidéo, c'est elle que l'app rend cliquable |
 | Médias | `media-use` | musique, effets sonores, voix off, LUT, recadrage |
 | Vidéo sans face cam | `faceless-explainer` | explainer à partir d'un texte |
-| Montage dans Premiere | MCP `premiere-pro` + `storyboard-review` | importer une coupe Premiere dans le storyboard |
+| Coupe faite dans un autre logiciel (Premiere, DaVinci, CapCut…) | aucun : exporter un MP4 | le poser dans `out/` et le déclarer dans `review.config.json` ; avec Premiere, `storyboard-review` peut aussi reprendre la coupe via le MCP `premiere-pro` (optionnel) |
 
 `matte.py` utilise un environnement Python posé dans un ancien projet (`~/hyperframes-videos/cctv-tuto/.venv-matte`) : à recréer si ce dossier disparaît (`torch`, `numpy` ; les poids RobustVideoMatting sont téléchargés par `torch.hub` au premier lancement).

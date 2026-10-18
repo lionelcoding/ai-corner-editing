@@ -22,7 +22,7 @@ review.config.json (chemins relatifs à la racine du projet) :
   "html_layer": {"src": "index.html", "timeline": "main", "track": "components", "rect": [0,0,1080,1920],
                  "vars": {"arrows": true}},          # optionnel : variables HyperFrames -> copie index.review.html
   "panels": [...],                                   # stage storyboard : panneaux au format du schéma
-  "version": "V2 · coupe Premiere"                   # nom du tour affiché dans le menu Versions de l'app
+  "version": "V2 · premier rendu"                     # nom du tour affiché dans le menu Versions de l'app
 }
 Un tour qui se termine (--next-round) est archivé dans review/versions/round-N.json ; --archive-config reconstitue un ancien tour.
 """
