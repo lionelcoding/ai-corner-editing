@@ -9,6 +9,12 @@ A local review app for videos. It has two modes:
 
 Comments go back to Claude through a file, not through copy-paste.
 
+| Storyboard | Final video | Versions |
+|---|---|---|
+| ![Storyboard: approve panels, pin a comment in the clip](docs/media/storyboard.gif) | ![Final: click a card line or a caption word and comment it](docs/media/final.gif) | ![Versions: open an archived round read-only, comments to recheck](docs/media/versions.gif) |
+
+Full-quality videos: [storyboard.mp4](docs/media/storyboard.mp4), [final.mp4](docs/media/final.mp4), [versions.mp4](docs/media/versions.mp4).
+
 It is a **tool**, independent of any skill. A skill writes `review/manifest.json` in its project folder, the user reviews, the app writes `review/review.json`, and the skill reads it when the user says "apply the review". The tool knows nothing about reels: everything specific lives in an adapter. This repo ships a generic one, [`adapter/`](adapter/README.md): it turns a short `review.config.json` into the manifest and handles rounds, versions and the storyboard → final switch.
 
 **New here?** Read the end-to-end guide, [docs/parcours.md](docs/parcours.md) (rush → storyboard → edit → final review), and try it on the sample project: `npm run demo` ([examples/demo](examples/demo)).

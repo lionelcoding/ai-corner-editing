@@ -44,6 +44,8 @@ Dans l'app, onglet **Storyboard** :
 - clic dans une image ou dans le clip = commentaire épinglé à ce point ; <kbd>C</kbd> = commentaire général ;
 - supprimer une suggestion = la refuser.
 
+![Relecture du storyboard](media/storyboard.gif)
+
 Chaque commentaire est enregistré dans `review/review.json`, avec une capture de l'image dans `review/shots/`.
 
 ## 4. Appliquer les retours, tour suivant
@@ -51,7 +53,9 @@ Dis à Claude « applique la relecture ». Il lit les commentaires (`ai-corner-e
 ```bash
 ai-corner-review mon-short --next-round
 ```
-Le tour précédent est archivé (`review/versions/round-N.json`) et reste consultable, en lecture seule, dans le menu **Versions**. Les commentaires résolus affichent « recheck » jusqu'à ce que tu les confirmes.
+Le tour précédent est archivé (`review/versions/round-N.json`) et reste consultable, en lecture seule, dans le menu **Versions**. ![Menu Versions et commentaires à revérifier](media/versions.gif)
+
+Les commentaires résolus affichent « recheck » jusqu'à ce que tu les confirmes.
 
 On boucle 3 → 4 jusqu'à ce que tous les panneaux soient approuvés et qu'aucun commentaire ne reste ouvert : `ai-corner-editing status mon-short` affiche alors `"status": "approved"`.
 
@@ -65,6 +69,8 @@ Dans `review.config.json` : `"stage": "final"`, `"video": "out/<rendu>.mp4"`, un
 ai-corner-review mon-short
 ```
 L'adaptateur voit le changement d'étape : il garde le storyboard (`review/manifest.storyboard.json`, onglet Storyboard toujours visible) et ouvre le final au tour suivant.
+
+![Relecture de la vidéo finale](media/final.gif)
 
 Dans l'onglet **Final video** : lecture image par image, clic sur un élément (carte, ligne d'une carte, mot de sous-titre, zone) ou sur un bloc de la timeline (plan, effet sonore, son), puis commentaire. Même boucle qu'à l'étape 4, avec un nouveau nom de rendu à chaque tour.
 
