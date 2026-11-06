@@ -1,4 +1,4 @@
-// Plays one passage of a preview video (the animatic) in a loop inside a storyboard panel.
+// Shows one passage of a preview video (the animatic) inside a storyboard panel. It starts paused and loops once played.
 // Pause and click to pin a comment at an exact time and point.
 import { useEffect, useRef, useState } from "react";
 import type { Comment } from "../types";
@@ -24,7 +24,7 @@ export function ClipPlayer({ src, start, end, w, h, fps, comments, activeId, vid
 
   useEffect(() => {
     const v = videoRef.current!;
-    const reset = () => { v.currentTime = loop.current.a; v.play().catch(() => {}); };
+    const reset = () => { v.pause(); v.currentTime = loop.current.a; };
     if (v.readyState >= 1) reset(); else v.addEventListener("loadedmetadata", reset, { once: true });
     let handle = 0;
     const tick = () => {

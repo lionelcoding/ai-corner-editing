@@ -5,6 +5,9 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ; numéros : [
 (correctif = bug corrigé, mineur = nouvelle fonction compatible, majeur = format du manifeste ou de review.json cassé).
 
 ## [Non publié]
+### Corrigé
+- **Storyboard** : les extraits ne démarrent plus seuls à l'ouverture de l'app, au changement de panneau ou de version. La lecture ne part que sur Lecture ou Espace.
+
 ### Ajouté
 - **Adaptateur `review`** dans le dépôt (`adapter/`, commande `ai-corner-review`) : `review.config.json` → `review/manifest.json`, tours, versions et passage storyboard → final. Il appelle la CLI du même dépôt.
 - **Projet exemple** `examples/demo` et `npm run demo` : un short de 9 s (médias fabriqués par ffmpeg) avec storyboard, couche HTML cliquable, sous-titres, effets sonores.
